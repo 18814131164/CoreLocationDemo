@@ -22,36 +22,21 @@
 - (CLLocationManager *)lm
 {
     if (!_lm) {
-        //  1.创建位置管理者
+        //  创建位置管理者
         _lm = [[CLLocationManager alloc]init];
-        
-        //  1.1代理、通知、block
         _lm.delegate = self;
         
         // 每隔多远调用定位方法一次:米
-        // - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations
         _lm.distanceFilter = 100;
-        
-        
-        /*
-         extern const CLLocationAccuracy kCLLocationAccuracyBestForNavigation //最适合导航
-         extern const CLLocationAccuracy kCLLocationAccuracyBest;//最好的
-         extern const CLLocationAccuracy kCLLocationAccuracyNearestTenMeters;//附近10米
-         extern const CLLocationAccuracy kCLLocationAccuracyHundredMeters;//100m
-         extern const CLLocationAccuracy kCLLocationAccuracyKilometer;//1000m
-         extern const CLLocationAccuracy kCLLocationAccuracyThreeKilometers;//3000m
-         */
         
         
         // 精确度越高，越耗电，定位时间越长
         _lm.desiredAccuracy = kCLLocationAccuracyBest;
         
         
-        
-        
+  
         /***-- iOS8.0 + 定位适配 --**/
         // 需要主动去请求权限
-        
         // iOS8.0以下的会报错没有该方法
         if ([UIDevice currentDevice].systemVersion.floatValue >= 8.0) {
             
@@ -84,8 +69,8 @@
 
 
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
     
     //    CLLocation *l1 = [[CLLocation alloc]initWithLatitude:21.123 longitude:123.456];
     //    CLLocation *l2 = [[CLLocation alloc]initWithLatitude:22.123 longitude:123.456];
@@ -93,27 +78,13 @@
     //    CLLocationDistance distance = [l1 distanceFromLocation:l2];
     //    NSLog(@"%f",distance);
     
-    
-    //  局部变量，出了这个方法就消失
-    
-    
-    // 2.使用位置管理着，开始更新用户位置
+    // 开始更新用户位置
     // 默认只能在前台获取用户位置
     // 勾选后台模式 location updates
     [self.lm startUpdatingLocation];
     
-    
-    
-    /*
-     extern const CLLocationAccuracy kCLLocationAccuracyBestForNavigation //最适合导航
-     extern const CLLocationAccuracy kCLLocationAccuracyBest;//最好的
-     extern const CLLocationAccuracy kCLLocationAccuracyNearestTenMeters;//附近10米
-     extern const CLLocationAccuracy kCLLocationAccuracyHundredMeters;//100m
-     extern const CLLocationAccuracy kCLLocationAccuracyKilometer;//1000m
-     extern const CLLocationAccuracy kCLLocationAccuracyThreeKilometers;//3000m
-     */
+ 
     // 在有效的超时时间内从远到近找到最好的定位进行返回
-    
     // [self.lm requestLocation];
 }
 
@@ -241,6 +212,6 @@
 
 // 定位失败
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
-    NSLog(@"error = %@",error);
+   //...
 }
 @end

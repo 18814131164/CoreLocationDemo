@@ -36,17 +36,17 @@
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     
-    // 区域监听
-    
+    // 多个区域监听
     CLLocationCoordinate2D center = {21.13, 123.456};
-    CLCircularRegion *region = [[CLCircularRegion alloc] initWithCenter:center radius:1000 identifier:@"小码哥"];
+    CLCircularRegion *region = [[CLCircularRegion alloc] initWithCenter:center radius:1000 identifier:@"广州"];
+    [self.lm startMonitoringForRegion:region];
     
-    //    [self.lm startMonitoringForRegion:region];
     
-    //    CLLocationCoordinate2D center2 = {21.13, 123.456};
-    //    CLCircularRegion *region2 = [[CLCircularRegion alloc] initWithCenter:center2 radius:1000 identifier:@"小码哥2"];
-    //
-    //    [self.lm startMonitoringForRegion:region2];
+    CLLocationCoordinate2D center2 = {23.13, 123.456};
+    CLCircularRegion *region2 = [[CLCircularRegion alloc] initWithCenter:center2 radius:1000 identifier:@"北京"];
+    [self.lm startMonitoringForRegion:region2];
+    
+    
     
     // 请求区域状态
     [self.lm requestStateForRegion:region];
@@ -71,7 +71,6 @@
 -(void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region
 {
     NSLog(@"%zd", state);
-    
     
 }
 

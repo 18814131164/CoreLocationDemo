@@ -10,8 +10,10 @@
 #import <CoreLocation/CoreLocation.h>
 
 @interface CoreLocationGeocoderViewController ()
+
 /** 地理编码 */
 @property (nonatomic, strong) CLGeocoder *geoC;
+
 @end
 
 @implementation CoreLocationGeocoderViewController
@@ -24,66 +26,67 @@
     return _geoC;
 }
 
-- (IBAction)geoCoder {
-    
-    
-//    NSString *addr  = self.addressTV.text;
-//    
-//    if ([addr length] == 0) {
-//        return;
-//    }
-    
-//    [self.geoC geocodeAddressString:addr completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
-//        /**
-//         *  CLPlacemark
-//         location : 位置对象
-//         addressDictionary : 地址字典
-//         name : 地址全称
-//         */
-//        if(error == nil)
-//        {
-//            NSLog(@"%@", placemarks);
-//            [placemarks enumerateObjectsUsingBlock:^(CLPlacemark * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//                NSLog(@"%@", obj.name);
-//                self.addressTV.text = obj.name;
-//                self.laTF.text = @(obj.location.coordinate.latitude).stringValue;
-//                self.longTF.text = @(obj.location.coordinate.longitude).stringValue;
-//            }];
-//        }else
-//        {
-//            NSLog(@"cuowu--%@", error.localizedDescription);
-//        }
-//        
-//    }];
-    
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [self geoCoder];
 }
-- (IBAction)reverseGeoCoder {
+
+// 编码
+- (void)geoCoder
+{
     
-    
-//    double lati = [self.laTF.text doubleValue];
-//    double longi = [self.longTF.text doubleValue];
-    
-    // TODO: 容错
-    
-//    CLLocation *loc = [[CLLocation alloc] initWithLatitude:lati longitude:longi];
-//    [self.geoC reverseGeocodeLocation:loc completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
-//        if(error == nil)
-//        {
-//            NSLog(@"%@", placemarks);
-//            [placemarks enumerateObjectsUsingBlock:^(CLPlacemark * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//                NSLog(@"%@", obj.name);
-////                self.addressTV.text = obj.name;
-////                self.laTF.text = @(obj.location.coordinate.latitude).stringValue;
-////                self.longTF.text = @(obj.location.coordinate.longitude).stringValue;
-//            }];
-//        }else
-//        {
-//            NSLog(@"cuowu");
-//        }
-//        
-//    }];
+    [self.geoC geocodeAddressString:@"保利中辰" completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
+        
+        /**
+         *  CLPlacemark
+         location : 位置对象
+         addressDictionary : 地址字典
+         name : 地址全称
+         */
+        if(error == nil)
+        {
+            NSLog(@"%@", placemarks);
+            [placemarks enumerateObjectsUsingBlock:^(CLPlacemark * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                
+                NSLog(@"%@", obj.name);
+                NSLog(@"%@", @(obj.location.coordinate.longitude).stringValue);
+                NSLog(@"%@", @(obj.location.coordinate.latitude).stringValue);
+                
+            }];
+        }else
+        {
+            NSLog(@"cuowu--%@", error.localizedDescription);
+        }
+        
+    }];
     
 }
 
+// 反编码
+- (void)reverseGeoCoder
+{
+    
+    CLLocation *loc = [[CLLocation alloc] initWithLatitude:23.123 longitude:122.22];
+    [self.geoC reverseGeocodeLocation:loc completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
+        if(error == nil)
+        {
+            NSLog(@"%@", placemarks);
+            
+            [placemarks enumerateObjectsUsingBlock:^(CLPlacemark * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                
+                NSLog(@"%@", obj.name);
+                NSLog(@"%@", @(obj.location.coordinate.longitude).stringValue);
+                NSLog(@"%@", @(obj.location.coordinate.latitude).stringValue);
+                
+            }];
+        }
+        else
+        {
+            NSLog(@"cuowu");
+        }
+        
+    }];
+    
+}
 
 @end
